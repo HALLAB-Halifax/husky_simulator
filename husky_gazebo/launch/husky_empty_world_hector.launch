@@ -33,7 +33,8 @@ robot model in Gazebo
   
   <group ns="husky">
     <include file="$(find husky_gazebo)/launch/base_hector.urdf.gazebo.launch"/>
-     
+    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="husky_teleop">
+    </node>
   
 
    
@@ -52,6 +53,7 @@ robot model in Gazebo
   </group>
     <group ns="drone">
      <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor.launch"/>
+     <include file="$(find hector_quadrotor_teleop)/launch/logitech_gamepad.launch"/>
      
    </group>
    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
