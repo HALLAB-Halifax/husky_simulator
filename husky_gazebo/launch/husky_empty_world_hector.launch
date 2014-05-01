@@ -30,10 +30,15 @@ robot model in Gazebo
 -->
 
 <launch>
+  
+  <group ns="husky">
     <include file="$(find husky_gazebo)/launch/base_hector.urdf.gazebo.launch"/>
-    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
-    <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor.launch"/>
+     
+  
+
+   
     <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+      
       <!--remap from="imu_data" to="imu"/-->
       <rosparam>
         freq: 10.0
@@ -44,4 +49,10 @@ robot model in Gazebo
         output_frame: odom
       </rosparam>
     </node>
+  </group>
+    <group ns="drone">
+     <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor.launch"/>
+     
+   </group>
+   <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
 </launch>
