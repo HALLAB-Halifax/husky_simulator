@@ -52,7 +52,7 @@ robot model in Gazebo
     </node>
   </group>
     <group ns="drone">
-     <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor_with_downward_cam.launch"/>
+     <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor.launch"/>
      <include file="$(find hector_quadrotor_teleop)/launch/logitech_gamepad.launch"/>
      
    </group>
