@@ -30,31 +30,23 @@ robot model in Gazebo
 -->
 
 <launch>
-  
-  <group ns="husky">
-    <include file="$(find husky_gazebo)/launch/base_hector.urdf.gazebo.launch"/>
-    <node pkg="teleop_twist_keyboard" type="teleop_twist_keyboard.py" name="husky_teleop">
-    </node>
-  
+  <!--group ns="husky"-->
 
-   
-    <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
-      
-      <!--remap from="imu_data" to="imu"/-->
-      <rosparam>
-        freq: 10.0
-        sensor_timeout: 1.0
-        publish_tf: true
-        odom_used: true
-        vo_used: false
-        output_frame: odom
-      </rosparam>
-    </node>
-  </group>
-    <group ns="drone">
-     <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor_with_downward_cam.launch"/>
-     <include file="$(find hector_quadrotor_teleop)/launch/logitech_gamepad.launch"/>
-     
-   </group>
-   <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
+
+    <param name="use_sim_time" value="true" />
+
+    <!-- Send the Husky A200 Robot URDF/XACRO to param server -->
+    <param name="robot_description" command="$(find xacro)/xacro.py '$(find husky_description)/urdf/base.urdf.xacro'" />
+
+    <!-- Spawn robot in gazebo -->
+    <node name="spawn_husky_model" pkg="gazebo_ros" type="spawn_model" 
+args="$(optenv ROBOT_INITIAL_POSE) -unpause -urdf -param robot_description -model mobile_base"/>
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
+        <param name="publish_frequency" type="double" value="30.0" />
+	<param name="tf_prefix" type="string" value="husky"/>
+      </node>
+ <node pkg="tf" type="static_transform_publisher" name="world_base_link_broadcaster" args="0 2 0 0 0 0 /world husky/base_footprint 100" />
+
+<!--/group-->
+
 </launch>

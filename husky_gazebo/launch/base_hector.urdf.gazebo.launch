@@ -43,7 +43,9 @@ robot model in Gazebo
 args="$(optenv ROBOT_INITIAL_POSE) -unpause -urdf -param robot_description -model mobile_base"/>
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher">
         <param name="publish_frequency" type="double" value="30.0" />
+	<param name="tf_prefix" type="string" value="husky"/>
       </node>
+
 
 <!--/group-->
 
