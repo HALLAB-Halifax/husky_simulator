@@ -54,6 +54,7 @@ robot model in Gazebo
     <group ns="drone">
      <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor_with_downward_cam.launch"/>
      <include file="$(find hector_quadrotor_teleop)/launch/logitech_gamepad.launch"/>
+     <node pkg="hector_pose_estimation" type="pose_estimation" name="hector_localization"/>	
      
    </group>
    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
