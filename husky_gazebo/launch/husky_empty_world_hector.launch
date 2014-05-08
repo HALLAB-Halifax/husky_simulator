@@ -54,9 +54,23 @@ robot model in Gazebo
     <group ns="drone">
      <include file="$(find hector_quadrotor_gazebo)/launch/spawn_quadrotor_with_downward_cam.launch"/>
      <include file="$(find hector_quadrotor_teleop)/launch/logitech_gamepad.launch"/>
-     <node pkg="hector_pose_estimation" type="pose_estimation" name="hector_localization"/>	
+     <node pkg="hector_pose_estimation" type="pose_estimation" name="hector_localization"/>
+     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+     <remap from="/odom" to="/state"/>
+     <rosparam file="$(find husky_gazebo)/params_costmap2d.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find husky_gazebo)/params_costmap2d.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find husky_gazebo)/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find husky_gazebo)/local_costmap_params.yaml" command="load" />
+    <rosparam>
+        TrajectoryPlannerROS:
+            xy_goal_tolerance: 0.5
+            yaw_goal_tolerance: 0.1
+            global_frame_id: nav
+    </rosparam>	
+     </node>
      
    </group>
    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
  <node pkg="tf" type="static_transform_publisher" name="world_base_link_broadcaster" args="0 2 0 0 0 0 /world husky/base_footprint 100" />
+<node pkg="tf" type="static_transform_publisher" name="world_nav_link_broadcaster" args="0 0 0 0 0 0 /world /nav 100" />
 </launch>
