@@ -57,10 +57,10 @@ robot model in Gazebo
      <node pkg="hector_pose_estimation" type="pose_estimation" name="hector_localization"/>
      <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
      <remap from="/odom" to="/state"/>
-     <rosparam file="$(find husky_gazebo)/params_costmap2d.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find husky_gazebo)/params_costmap2d.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find husky_gazebo)/global_costmap_params.yaml" command="load" />
-    <rosparam file="$(find husky_gazebo)/local_costmap_params.yaml" command="load" />
+     <rosparam file="$(find husky_gazebo)/config/params_costmap2d.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find husky_gazebo)/config/params_costmap2d.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find husky_gazebo)/config/global_costmap_params.yaml" command="load" />
+    <rosparam file="$(find husky_gazebo)/config/local_costmap_params.yaml" command="load" />
     <rosparam>
         TrajectoryPlannerROS:
             xy_goal_tolerance: 0.5

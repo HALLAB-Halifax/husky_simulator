@@ -73,3 +73,4 @@ robot model in Gazebo
    <include file="$(find gazebo_ros)/launch/empty_world.launch"/>
  <node pkg="tf" type="static_transform_publisher" name="world_base_link_broadcaster" args="0 2 0 0 0 0 /world husky/base_footprint 100" />
 <node pkg="tf" type="static_transform_publisher" name="world_nav_link_broadcaster" args="0 0 0 0 0 0 /world /nav 100" />
+</launch>
